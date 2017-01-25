@@ -64,12 +64,20 @@ namespace Following
                 newslist.Add(m);
             }
 
+            string[] strarr;
+            int hour, minute;
             MatchCollection times = Regex.Matches(s, "align=\"absmiddle\"></a>.*?<span class=\"time\">(.*?)  </span> &nbsp; <small>Դիտվել է .*? անգամ</small><br>", RegexOptions.Singleline);
             int i = 0;
             foreach (Match x in times)
-            {
+            { 
                 GroupCollection Group = x.Groups;
-                newslist[i].Date = Group[1].Value.Trim();
+                strarr = Group[1].Value.Split(':');
+                hour = int.Parse(strarr[0]);
+                minute = int.Parse(strarr[1]);
+                if ((hour < DateTime.Now.Hour) || (hour == DateTime.Now.Hour && minute < DateTime.Now.Minute))
+                newslist[i].Date = Group[1].Value.Trim() + "  " + DateTime.Now.Day + "." + DateTime.Now.Month + "." + DateTime.Now.Year;
+                else
+                    newslist[i].Date = Group[1].Value.Trim() +"  "+ DateTime.Now.AddDays(-1).Day + "." + DateTime.Now.AddDays(-1).Month + "." + DateTime.Now.AddDays(-1).Year;
                 i++;
             }
             i = 0;

@@ -14,7 +14,7 @@ namespace Following
         public string Link { get; set; }
         public override string ToString()
         {
-            return $"--{Title}\n--{Date}\n--{Views}\n--{Link}";
+            return $"{Title} {Environment.NewLine}{Date}{Environment.NewLine}Viewed:{Views}{Environment.NewLine}LinkTo:{Link}{Environment.NewLine}";
         }
 
     }
