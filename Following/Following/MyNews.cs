@@ -47,47 +47,62 @@ namespace Following
     {
         public string AgencyName { get; set; }
         List<NewsProp> newslist = new List<NewsProp>();
-        
-        public MyNews(string name)
+        public string language { get; set; }
+
+
+        public MyNews(string name, string language = "arm")
         {
             AgencyName = name;
+            this.language = language;
         }
 
         void NewsListCreator()
         {
-            string s = Server.SendGetRequest("http://blognews.am/arm/");
-            MatchCollection viewes = Regex.Matches(s, "</span> &nbsp; <small>Դիտվել է (.*?) անգամ</small><br>", RegexOptions.Singleline);
+            string s1 = "</span> &nbsp; <small>Դիտվել է (.*?) անգամ</small><br>",
+             s2 = "align=\"absmiddle\"></a>.*?<span class=\"time\">(.*?)  </span> &nbsp; <small>Դիտվել է .*? անգամ</small><br>",
+             s3 = "</span> &nbsp; <small>Դիտվել է.*?<a href=\"(.*?)\" >(.*?)</a>";
+
+            string s = Server.SendGetRequest("http://blognews.am/" + $"{this.language.Substring(0, 3).ToLower()}");
+
+            if (this.language.Substring(0, 3).ToLower() == "rus")
+            {
+                s1 = "</span> &nbsp; <small>Просмотрен (.*?)  раз</small><br>";
+                s2 = "align=\"absmiddle\"></a>.*?<span class=\"time\">(.*?)  </span> &nbsp; <small>Просмотрен .*? раз</small><br>";
+                s3 = "</span> &nbsp; <small>Просмотрен.*?<a href=\"(.*?)\" >(.*?)</a>";
+            }
+
+            MatchCollection viewes = Regex.Matches(s, s1, RegexOptions.Singleline);
             foreach (Match x in viewes)
             {
                 GroupCollection Group = x.Groups;
-                var m = new NewsProp {Views = int.Parse(Group[1].Value.Trim()) };
+                var m = new NewsProp { Views = int.Parse(Group[1].Value.Trim()) };
                 newslist.Add(m);
             }
 
             string[] strarr;
             int hour, minute;
-            MatchCollection times = Regex.Matches(s, "align=\"absmiddle\"></a>.*?<span class=\"time\">(.*?)  </span> &nbsp; <small>Դիտվել է .*? անգամ</small><br>", RegexOptions.Singleline);
+            MatchCollection times = Regex.Matches(s, s2, RegexOptions.Singleline);
             int i = 0;
             foreach (Match x in times)
-            { 
+            {
                 GroupCollection Group = x.Groups;
                 strarr = Group[1].Value.Split(':');
                 hour = int.Parse(strarr[0]);
                 minute = int.Parse(strarr[1]);
                 if ((hour < DateTime.Now.Hour) || (hour == DateTime.Now.Hour && minute < DateTime.Now.Minute))
-                newslist[i].Date = Group[1].Value.Trim() + "  " + DateTime.Now.Day + "." + DateTime.Now.Month + "." + DateTime.Now.Year;
+                    newslist[i].Date = Group[1].Value.Trim() + "  " + DateTime.Now.Day + "." + DateTime.Now.Month + "." + DateTime.Now.Year;
                 else
-                    newslist[i].Date = Group[1].Value.Trim() +"  "+ DateTime.Now.AddDays(-1).Day + "." + DateTime.Now.AddDays(-1).Month + "." + DateTime.Now.AddDays(-1).Year;
+                    newslist[i].Date = Group[1].Value.Trim() + "  " + DateTime.Now.AddDays(-1).Day + "." + DateTime.Now.AddDays(-1).Month + "." + DateTime.Now.AddDays(-1).Year;
                 i++;
             }
             i = 0;
-            MatchCollection titleslinks = Regex.Matches(s, "</span> &nbsp; <small>Դիտվել է.*?<a href=\"(.*?)\" >(.*?)</a>", RegexOptions.Singleline);
+            MatchCollection titleslinks = Regex.Matches(s, s3, RegexOptions.Singleline);
             foreach (Match x in titleslinks)
             {
                 if (i < newslist.Count)
                 {
                     GroupCollection Group = x.Groups;
-                    newslist[i].Link = "http://blognews.am/" + Group[1].Value.Trim();
+                    newslist[i].Link = "http://blognews.am" + Group[1].Value.Trim();
                     newslist[i].Title = Group[2].Value.Trim();
                     i++;
                 }

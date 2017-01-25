@@ -12,7 +12,7 @@ namespace BlogNews
     {
         static void Main(string[] args)
         {
-            MyNews mn = new MyNews("BlogNews");
+            MyNews mn = new MyNews("BlogNews","russian");
             mn.DailyNews += ShowNews;
             mn.BroadcastNews();
 
