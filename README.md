@@ -1,9 +1,10 @@
 # ApplicationFollowNews
 Namespace **Following** has two main classes:**MyNews** and _static class_ **Server**.</br>
-**Server** class contains a static method **SendGetRequest(string url)**, which returns the source code of a web page that given by _url_.</br>
+**Server** class contains a static method **SendGetRequest(string url)**, which returns the source code of a web page</br>
+that given by _url_.</br>
 ![how to get source code of a web page](https://github.com/merisahakyan/ApplicationFollowNews/blob/master/sourcecode.gif)</br>
-**MyNews** class constructor allows to choose in which language you want to get the most read news(arenian or russian).In default </br>
-it is armenian.
+**MyNews** class constructor allows to choose in which language you want to get the most read news(arenian or russian).</br>
+In default it is armenian.
 ```cs
 public MyNews(string name, string language = "arm")
 {
@@ -12,7 +13,7 @@ public MyNews(string name, string language = "arm")
 }
 ```
 The _private_ **void NewsListCreator()** method fills the list with received news.News with their properties we receive </br>
-with help System.Text.RegularExpressions namespace.
+with help **System.Text.RegularExpressions** namespace.
 ```cs
 MatchCollection viewes = Regex.Matches(s, s1, RegexOptions.Singleline);
 foreach (Match x in viewes)
