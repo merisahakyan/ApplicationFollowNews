@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Following", "Following\Following.csproj", "{F7CEA2C5-1ADC-4AFE-B499-AA2D51B3B1F4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogNews", "BlogNews\BlogNews.csproj", "{8C53A403-DE2D-4CDC-842F-3F89971B4437}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsForm", "NewsForm\NewsForm.csproj", "{42DAA179-E9F8-4A39-BE25-9AD6DEA2E1F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{F7CEA2C5-1ADC-4AFE-B499-AA2D51B3B1F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7CEA2C5-1ADC-4AFE-B499-AA2D51B3B1F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7CEA2C5-1ADC-4AFE-B499-AA2D51B3B1F4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8C53A403-DE2D-4CDC-842F-3F89971B4437}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8C53A403-DE2D-4CDC-842F-3F89971B4437}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8C53A403-DE2D-4CDC-842F-3F89971B4437}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8C53A403-DE2D-4CDC-842F-3F89971B4437}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42DAA179-E9F8-4A39-BE25-9AD6DEA2E1F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42DAA179-E9F8-4A39-BE25-9AD6DEA2E1F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42DAA179-E9F8-4A39-BE25-9AD6DEA2E1F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42DAA179-E9F8-4A39-BE25-9AD6DEA2E1F9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

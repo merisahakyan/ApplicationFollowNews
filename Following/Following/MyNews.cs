@@ -7,10 +7,20 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
+
 namespace Following
 {
     public static class Server
+
     {
+        public static string GetSourceCode(string url)
+        {
+            if (url == null)
+                throw new ArgumentNullException();
+            WebClient wc = new WebClient();
+            var uri = new Uri(url);
+            return wc.DownloadString(uri);
+        }
         public static string SendGetRequest(string url)
         {
             try
@@ -63,7 +73,7 @@ namespace Following
              s3 = "</span> &nbsp; <small>Դիտվել է.*?<a href=\"(.*?)\" >(.*?)</a>";
 
             string s = Server.SendGetRequest("http://blognews.am/" + $"{this.language.Substring(0, 3).ToLower()}");
-
+            
             if (this.language.Substring(0, 3).ToLower() == "rus")
             {
                 s1 = "</span> &nbsp; <small>Просмотрен (.*?)  раз</small><br>";

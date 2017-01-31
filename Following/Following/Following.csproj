@@ -42,7 +42,9 @@
   <ItemGroup>
     <Compile Include="MyNews.cs" />
     <Compile Include="NewsProp.cs" />
+    <Compile Include="Password.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SendMail.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
