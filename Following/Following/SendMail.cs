@@ -9,7 +9,7 @@ namespace Following
 {
     public class SendMail
     {
-        public static void TextMessage(string address,string name,out string pin)
+        public static void TextMessage(string address,string name,out string pin,out string password)
         {
             pin = Password.PinCodeGen();
             SmtpClient client = new SmtpClient();
@@ -18,14 +18,15 @@ namespace Following
             client.EnableSsl = true;
             //client.DeliveryMethod = SmtpDeliveryMethod.Network;
             //client.UseDefaultCredentials = false;
-            client.Credentials = new System.Net.NetworkCredential("sahakyan-m15@mail.ru", "merishok975");
+            client.Credentials = new System.Net.NetworkCredential("your mail", "password");
             MailMessage mail;
+            password = Password.NewPassword();
             
                 try
                 {
                     mail = new MailMessage("sahakyan-m15@mail.ru", address);
                     mail.Subject = "Following";
-                    mail.Body = $"Hi Dear {name}! \nYou are followed in most read news of BlogNews\nThis is your PIN code for verify your account: {pin}";
+                    mail.Body = $"Hi Dear {name}! \nYou are followed in most read news of BlogNews\nThis is your PIN code for verify your account: {pin}\nYour password :{password}";
 
                     client.Send(mail);
                 }
