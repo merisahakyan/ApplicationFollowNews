@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Following
+namespace ConsoleApplication1
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class UsersEntities : DbContext
+    public partial class UsersContext : DbContext
     {
-        public UsersEntities()
-            : base("name=UsersEntities")
+        public UsersContext()
+            : base("name=UsersContext")
         {
         }
     
@@ -25,6 +25,6 @@ namespace Following
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<User_Table> User_Table { get; set; }
+        public virtual DbSet<Users_Table> Users_Table { get; set; }
     }
 }

@@ -14,9 +14,51 @@ namespace NewsForm
 {
     public partial class News : Form
     {
+        public static bool CheckSignIn(string email, string password)
+        {
+            using (var db = new UsersContext())
+            {
+                var query = from b in db.Users_Table
+                            select b;
+
+                foreach (var item in query)
+                {
+                    if (item.eMail == email && item.Password == password)
+                        return true;
+                }
+                return false;
+            }
+        }
+
+        public static void AddNewUser(string name, string email, string password, out bool t)
+        {
+            t = true;
+            using (var db = new UsersContext())
+            {
+
+                var query = from b in db.Users_Table
+                            select b;
+
+                foreach (var item in query)
+                {
+                    if (item.eMail == email)
+                        t = false;
+                    break;
+                }
+
+                if (t)
+                {
+                    var user = new Users_Table { Name = name, Password = password, eMail = email };
+                    db.Users_Table.Add(user);
+                    
+                }
+
+                
+            }
+        }
         int pagenumber;
         int previouspagenumber;
-        string pin,password;
+        string pin, password;
         static string path;
         public News()
         {
@@ -37,14 +79,20 @@ namespace NewsForm
         //label3---PIN
         //label4----email
         //label5----password
+        //label6---validation
 
         public void FirstPage()
         {
+
             label1.Show();
             label2.Show();
             label3.Hide();
             label4.Hide();
             label5.Hide();
+            label6.Hide();
+            textBox1.Text="";
+            textBox2.Text="";
+            textBox3.Text="";
             textBox1.Show();
             textBox2.Show();
             textBox3.Hide();
@@ -63,9 +111,13 @@ namespace NewsForm
             label3.Show();
             label4.Hide();
             label5.Hide();
+            label6.Hide();
             textBox1.Hide();
             textBox2.Hide();
             textBox3.Show();
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
             button1.Hide();
             button2.Show();
             button3.Hide();
@@ -82,6 +134,10 @@ namespace NewsForm
             label3.Hide();
             label4.Hide();
             label5.Hide();
+            label6.Hide();
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
             textBox1.Hide();
             textBox2.Hide();
             textBox3.Hide();
@@ -101,6 +157,10 @@ namespace NewsForm
             label3.Hide();
             label4.Show();
             label5.Show();
+            label6.Hide();
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
             textBox1.Show();
             textBox2.Show();
             textBox3.Hide();
@@ -120,6 +180,10 @@ namespace NewsForm
             label3.Hide();
             label4.Hide();
             label5.Hide();
+            label6.Hide();
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
             textBox1.Hide();
             textBox2.Hide();
             textBox3.Hide();
@@ -134,10 +198,18 @@ namespace NewsForm
         }
         private void button1_Click(object sender, EventArgs e)
         {
+            bool t;
             string email = textBox1.Text;
             string name = textBox2.Text;
-            SendMail.TextMessage(email, name,out pin,out password);
-            AfterFollowButton();
+            password = Password.NewPassword();
+            AddNewUser(name, email, password, out t);
+            SendMail.TextMessage(email, name, out pin, password);
+            AddNewUser(name, email, password, out t);
+
+            if (t)
+                AfterFollowButton();
+            else
+                label6.Text = "Email is already in use";
 
         }
 
@@ -193,7 +265,16 @@ namespace NewsForm
 
         private void button5_Click(object sender, EventArgs e)
         {
-            AfterSigninButton();
+            string email = textBox1.Text;
+            string password = textBox2.Text;
+            if (CheckSignIn(email, password))
+                AfterSigninButton();
+            else
+            {
+                label6.Text = "Uncorrect email or password";
+                label6.Show();
+            }
+
 
         }
 

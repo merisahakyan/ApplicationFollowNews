@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Following
 {
-    class Password
+    public class Password
     {
         public static string PinCodeGen()
         {

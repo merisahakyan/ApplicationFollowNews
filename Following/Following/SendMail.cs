@@ -9,7 +9,7 @@ namespace Following
 {
     public class SendMail
     {
-        public static void TextMessage(string address,string name,out string pin,out string password)
+        public static void TextMessage(string address,string name,out string pin,string password)
         {
             pin = Password.PinCodeGen();
             SmtpClient client = new SmtpClient();
@@ -18,9 +18,9 @@ namespace Following
             client.EnableSsl = true;
             //client.DeliveryMethod = SmtpDeliveryMethod.Network;
             //client.UseDefaultCredentials = false;
-            client.Credentials = new System.Net.NetworkCredential("your mail", "password");
+            client.Credentials = new System.Net.NetworkCredential("your mail", "your password");
             MailMessage mail;
-            password = Password.NewPassword();
+            
             
                 try
                 {

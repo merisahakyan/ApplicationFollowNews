@@ -7,15 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Following
+namespace ConsoleApplication1
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class User_Table
+    public partial class Users_Table
     {
+        public int ID { get; set; }
         public string Name { get; set; }
-        public string Password { get; set; }
         public string eMail { get; set; }
+        public string Password { get; set; }
     }
 }
