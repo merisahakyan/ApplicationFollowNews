@@ -192,7 +192,7 @@ namespace NewsForm
             previouspagenumber = pagenumber;
             pagenumber = 4;
         }
-        private async void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
 
             button1.Enabled = false;
@@ -207,7 +207,7 @@ namespace NewsForm
                  return t;
 
              });
-            var result = await task;
+            var result = task.Result;
             if (result)
                 AfterFollowButton();
             else
@@ -230,7 +230,7 @@ namespace NewsForm
             }
         }
 
-        private async void button3_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e)
         {
             button3.Enabled = false;
             try
@@ -246,11 +246,15 @@ namespace NewsForm
                 MyNews mn = new MyNews("BlogNews");
                 mn.DailyNews += ShowNews;
                 mn.BroadcastNews();
-                //System.Diagnostics.Process.Start(path);
+                
             });
-            await task;
+            
+            task.ContinueWith((t) =>
+            {
+                System.Diagnostics.Process.Start(path);
+            });
 
-            System.Diagnostics.Process.Start(path);
+            
             button3.Enabled = true;
 
         }
