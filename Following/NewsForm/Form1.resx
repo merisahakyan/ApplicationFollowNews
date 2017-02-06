@@ -288,7 +288,7 @@
     <value>8</value>
   </data>
   <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>116, 194</value>
+    <value>117, 213</value>
   </data>
   <data name="button2.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -414,7 +414,7 @@
     <value>3</value>
   </data>
   <data name="button5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>115, 194</value>
+    <value>117, 213</value>
   </data>
   <data name="button5.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>

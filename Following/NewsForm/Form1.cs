@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Following;
@@ -50,10 +46,10 @@ namespace NewsForm
                 {
                     var user = new Users_Table { Name = name, Password = password, eMail = email };
                     db.Users_Table.Add(user);
-                    
+
                 }
 
-                
+
             }
         }
         int pagenumber;
@@ -90,9 +86,9 @@ namespace NewsForm
             label4.Hide();
             label5.Hide();
             label6.Hide();
-            textBox1.Text="";
-            textBox2.Text="";
-            textBox3.Text="";
+            textBox1.Text = "";
+            textBox2.Text = "";
+            textBox3.Text = "";
             textBox1.Show();
             textBox2.Show();
             textBox3.Hide();
@@ -196,29 +192,36 @@ namespace NewsForm
             previouspagenumber = pagenumber;
             pagenumber = 4;
         }
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
-            bool t;
-            string email = textBox1.Text;
-            string name = textBox2.Text;
-            password = Password.NewPassword();
-            AddNewUser(name, email, password, out t);
-            SendMail.TextMessage(email, name, out pin, password);
-            AddNewUser(name, email, password, out t);
 
-            if (t)
+            button1.Enabled = false;
+            var task = Task<bool>.Run(() =>
+             {
+                 bool t;
+                 string email = textBox1.Text;
+                 string name = textBox2.Text;
+                 password = Password.NewPassword();
+                 AddNewUser(name, email, password, out t);
+                 SendMail.TextMessage(email, name, out pin, password);
+                 return t;
+
+             });
+            var result = await task;
+            if (result)
                 AfterFollowButton();
             else
                 label6.Text = "Email is already in use";
+            button1.Enabled = true;
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            bool t = false;
+
             if (textBox3.Text == pin)
             {
-                t = true;
+
                 AfterSubmitButton();
             }
             else
@@ -227,7 +230,7 @@ namespace NewsForm
             }
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private async void button3_Click(object sender, EventArgs e)
         {
 
             try
@@ -238,9 +241,15 @@ namespace NewsForm
             {
                 //file does nor exist
             }
-            MyNews mn = new MyNews("BlogNews");
-            mn.DailyNews += ShowNews;
-            mn.BroadcastNews();
+            var task = Task.Run(() =>
+            {
+                MyNews mn = new MyNews("BlogNews");
+                mn.DailyNews += ShowNews;
+                mn.BroadcastNews();
+                //System.Diagnostics.Process.Start(path);
+            });
+            await task;
+
             System.Diagnostics.Process.Start(path);
 
         }
@@ -271,8 +280,8 @@ namespace NewsForm
                 AfterSigninButton();
             else
             {
-                label6.Text = "Uncorrect email or password";
                 label6.Show();
+                label6.Text = "Uncorrect email or password";
             }
 
 
