@@ -232,7 +232,7 @@ namespace NewsForm
 
         private async void button3_Click(object sender, EventArgs e)
         {
-
+            button3.Enabled = false;
             try
             {
                 File.Delete(path);
@@ -251,6 +251,7 @@ namespace NewsForm
             await task;
 
             System.Diagnostics.Process.Start(path);
+            button3.Enabled = true;
 
         }
         public static void ShowNews(object sender, EventArgs e)
