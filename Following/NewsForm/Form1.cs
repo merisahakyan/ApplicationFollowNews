@@ -9,7 +9,21 @@ using System.IO;
 namespace NewsForm
 {
     public partial class News : Form
+
     {
+        bool CheckMail(string address)
+        {
+            string[] mails = address.Split('@');
+            if (address.Contains(' ')
+                ||mails.Length<2
+                ||mails[mails.Length-1]!="mail.ru" 
+                || mails[mails.Length - 1] != "bk.ru"
+                || mails[mails.Length - 1] != "list.ru"
+                || mails[mails.Length - 1] != "inbox.ru")
+                return false;
+            else
+                return true;
+        }
         public static bool CheckSignIn(string email, string password)
         {
             using (var db = new UsersContext())
@@ -199,22 +213,34 @@ namespace NewsForm
             button1.Enabled = false;
             string email = textBox1.Text;
             string name = textBox2.Text;
-            
-            var task = Task<bool>.Run(() =>
-             {
-                 bool t;
-                 password = Password.NewPassword();
-                 AddNewUser(name, email, password, out t);
-                 SendMail.TextMessage(email, name, out pin, password);
-                 return t;
+            bool mailcheck = CheckMail(email);
+            if (mailcheck)
+            {
+                var task = Task<bool>.Run(() =>
+               {
+                   bool t;
+                   password = Password.NewPassword();
+                   AddNewUser(name, email, password, out t);
+                   SendMail.TextMessage(email, name, out pin, password);
+                   return t;
 
-             });
-            var result = task.Result;
-            if (result)
-                AfterFollowButton();
+               });
+                var result = task.Result;
+                if (result)
+                    AfterFollowButton();
+                else
+                    label6.Text = "Email is already in use";
+                button1.Enabled = true;
+            }
             else
-                label6.Text = "Email is already in use";
+            {
+                textBox1.Text = "";
+                textBox2.Text = "";
+                label6.Show();
+                label6.Text = "Uncorrect Email format";
+            }
             button1.Enabled = true;
+
 
         }
 
