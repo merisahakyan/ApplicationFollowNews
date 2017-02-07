@@ -28,6 +28,7 @@ namespace NewsForm
 
         public static void AddNewUser(string name, string email, string password, out bool t)
         {
+
             t = true;
             using (var db = new UsersContext())
             {
@@ -194,13 +195,14 @@ namespace NewsForm
         }
         private void button1_Click(object sender, EventArgs e)
         {
-
+            
             button1.Enabled = false;
+            string email = textBox1.Text;
+            string name = textBox2.Text;
+            
             var task = Task<bool>.Run(() =>
              {
                  bool t;
-                 string email = textBox1.Text;
-                 string name = textBox2.Text;
                  password = Password.NewPassword();
                  AddNewUser(name, email, password, out t);
                  SendMail.TextMessage(email, name, out pin, password);
@@ -246,15 +248,15 @@ namespace NewsForm
                 MyNews mn = new MyNews("BlogNews");
                 mn.DailyNews += ShowNews;
                 mn.BroadcastNews();
-                
+
             });
-            
+
             task.ContinueWith((t) =>
             {
                 System.Diagnostics.Process.Start(path);
             });
 
-            
+
             button3.Enabled = true;
 
         }
