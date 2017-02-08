@@ -26,6 +26,10 @@ namespace NewsForm
                 || mails[mails.Length - 1] == "list.ru"
                 || mails[mails.Length - 1] == "inbox.ru"))
                 return true;
+            if (!address.Contains(' ')
+                && mails.Length >= 2
+                && mails[mails.Length - 1] == "yandex.ru")
+                return true;
             return false;
 
 

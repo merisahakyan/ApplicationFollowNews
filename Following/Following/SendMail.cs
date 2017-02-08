@@ -14,7 +14,7 @@ namespace Following
             string[] mails = address.Split('@');
             pin = Password.PinCodeGen();
 
-            string sender = mails[mails.Length - 1] == "mail.ru" ? "your email" : "your gmail";
+            string sender;
             MailMessage mail;
 
 
@@ -26,7 +26,21 @@ namespace Following
                 client.EnableSsl = true;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
-                client.Credentials = mails[mails.Length - 1] == "mail.ru" ? new System.Net.NetworkCredential("your email address", "password") : new System.Net.NetworkCredential("your gmail address", "password");
+                switch (mails[mails.Length - 1])
+                {
+                    case "mail.ru":
+                        client.Credentials = new System.Net.NetworkCredential("your email address", "password");
+                        sender = "your email address";
+                        break;
+                    case "gmail.com": client.Credentials = new System.Net.NetworkCredential("your gmail address", "password");
+                        sender = "your gmail address";
+                        break;
+                    case "yandex.ru": client.Credentials = new System.Net.NetworkCredential("your yandex address", "password");
+                        sender = "your yandes address";
+                        break;
+                    default: sender = "";break;
+                }
+               
                 mail = new MailMessage(sender, address);
                 mail.Subject = "Following";
 
