@@ -14,15 +14,21 @@ namespace NewsForm
         bool CheckMail(string address)
         {
             string[] mails = address.Split('@');
-            if (address.Contains(' ')
-                ||mails.Length<2
-                ||mails[mails.Length-1]!="mail.ru" 
-                || mails[mails.Length - 1] != "bk.ru"
-                || mails[mails.Length - 1] != "list.ru"
-                || mails[mails.Length - 1] != "inbox.ru")
-                return false;
-            else
+            if (!address.Contains(' ')
+                && mails.Length >= 2
+                && mails[mails.Length - 1] == "gmail.com")
                 return true;
+            
+            if (!address.Contains(' ')
+                && mails.Length >= 2
+                && (mails[mails.Length - 1] == "mail.ru"
+                || mails[mails.Length - 1] == "bk.ru"
+                || mails[mails.Length - 1] == "list.ru"
+                || mails[mails.Length - 1] == "inbox.ru"))
+                return true;
+            return false;
+
+
         }
         public static bool CheckSignIn(string email, string password)
         {
