@@ -11,79 +11,7 @@ namespace NewsForm
     public partial class News : Form
 
     {
-        bool CheckMail(string address)
-        {
-            string[] mails = address.Split('@');
-            if (!address.Contains(' ')
-                && !address.Contains('\'')
-                && !address.Contains('\"')
-                && !address.Contains('#')
-                && !address.Contains('$')
-                && !address.Contains('%')
-                && !address.Contains('^')
-                && !address.Contains('&')
-                && !address.Contains('(')
-                && !address.Contains(')')
-                && !address.Contains('*')
-                && !address.Contains('=')
-                && !address.Contains('+')
-                && !address.Contains('`')
-                && !address.Contains('~')
-                && !address.Contains('{')
-                && !address.Contains('}')
-                && !address.Contains('\\')
-                && !address.Contains('|')
-                && !address.Contains(';')
-                && !address.Contains(',')
-                && !address.Contains(':')
-                && !address.Contains('<')
-                && !address.Contains('>')
-                && !address.Contains('/')
-                && !address.Contains('?')
-                && mails.Length >= 2
-                && mails[mails.Length - 1] == "gmail.com")
-                return true;
-            
-            if (!address.Contains(' ')
-                && !address.Contains('\'')
-                && !address.Contains('\"')
-                && !address.Contains('#')
-                && !address.Contains('$')
-                && !address.Contains('%')
-                && !address.Contains('^')
-                && !address.Contains('&')
-                && !address.Contains('(')
-                && !address.Contains(')')
-                && !address.Contains('*')
-                && !address.Contains('=')
-                && !address.Contains('+')
-                && !address.Contains('`')
-                && !address.Contains('~')
-                && !address.Contains('{')
-                && !address.Contains('}')
-                && !address.Contains('\\')
-                && !address.Contains('|')
-                && !address.Contains(';')
-                && !address.Contains(',')
-                && !address.Contains(':')
-                && !address.Contains('<')
-                && !address.Contains('>')
-                && !address.Contains('/')
-                && !address.Contains('?')
-                && mails.Length >= 2
-                && (mails[mails.Length - 1] == "mail.ru"
-                || mails[mails.Length - 1] == "bk.ru"
-                || mails[mails.Length - 1] == "list.ru"
-                || mails[mails.Length - 1] == "inbox.ru"))
-                return true;
-            if (!address.Contains(' ')
-                && mails.Length >= 2
-                && mails[mails.Length - 1] == "yandex.ru")
-                return true;
-            return false;
 
-
-        }
         public static bool CheckSignIn(string email, string password)
         {
             using (var db = new UsersContext())
@@ -109,7 +37,7 @@ namespace NewsForm
 
                 var query = from b in db.MyUsers
                             select b;
-               
+
                 foreach (var item in query)
                 {
                     if (item.eMail == email)
@@ -124,7 +52,7 @@ namespace NewsForm
                     db.SaveChanges();
                 }
 
-                
+
             }
         }
         int pagenumber;
@@ -273,7 +201,7 @@ namespace NewsForm
             button1.Enabled = false;
             string email = textBox1.Text;
             string name = textBox2.Text;
-            bool mailcheck = CheckMail(email);
+            bool mailcheck = SendMail.CheckMail(email);
             if (mailcheck)
             {
                 var task = Task<bool>.Run(() =>
@@ -289,7 +217,11 @@ namespace NewsForm
                 if (result)
                     AfterFollowButton();
                 else
+                {
                     label6.Text = "Email is already in use";
+                    label6.Show();
+                    textBox1.Text = "";
+                }
                 button1.Enabled = true;
             }
             else

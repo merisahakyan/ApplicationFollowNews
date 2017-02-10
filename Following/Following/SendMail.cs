@@ -9,6 +9,79 @@ namespace Following
 {
     public class SendMail
     {
+        public static bool CheckMail(string address)
+        {
+            string[] mails = address.Split('@');
+            if (!address.Contains(' ')
+                && !address.Contains('\'')
+                && !address.Contains('\"')
+                && !address.Contains('#')
+                && !address.Contains('$')
+                && !address.Contains('%')
+                && !address.Contains('^')
+                && !address.Contains('&')
+                && !address.Contains('(')
+                && !address.Contains(')')
+                && !address.Contains('*')
+                && !address.Contains('=')
+                && !address.Contains('+')
+                && !address.Contains('`')
+                && !address.Contains('~')
+                && !address.Contains('{')
+                && !address.Contains('}')
+                && !address.Contains('\\')
+                && !address.Contains('|')
+                && !address.Contains(';')
+                && !address.Contains(',')
+                && !address.Contains(':')
+                && !address.Contains('<')
+                && !address.Contains('>')
+                && !address.Contains('/')
+                && !address.Contains('?')
+                && mails.Length >= 2
+                && mails[mails.Length - 1] == "gmail.com")
+                return true;
+
+            if (!address.Contains(' ')
+                && !address.Contains('\'')
+                && !address.Contains('\"')
+                && !address.Contains('#')
+                && !address.Contains('$')
+                && !address.Contains('%')
+                && !address.Contains('^')
+                && !address.Contains('&')
+                && !address.Contains('(')
+                && !address.Contains(')')
+                && !address.Contains('*')
+                && !address.Contains('=')
+                && !address.Contains('+')
+                && !address.Contains('`')
+                && !address.Contains('~')
+                && !address.Contains('{')
+                && !address.Contains('}')
+                && !address.Contains('\\')
+                && !address.Contains('|')
+                && !address.Contains(';')
+                && !address.Contains(',')
+                && !address.Contains(':')
+                && !address.Contains('<')
+                && !address.Contains('>')
+                && !address.Contains('/')
+                && !address.Contains('?')
+                && mails.Length >= 2
+                && (mails[mails.Length - 1] == "mail.ru"
+                || mails[mails.Length - 1] == "bk.ru"
+                || mails[mails.Length - 1] == "list.ru"
+                || mails[mails.Length - 1] == "inbox.ru"))
+                return true;
+            if (!address.Contains(' ')
+                && mails.Length >= 2
+                && mails[mails.Length - 1] == "yandex.ru")
+                return true;
+            return false;
+
+
+        }
         public static void TextMessage(string address, string name, out string pin, string password)
         {
             string[] mails = address.Split('@');
