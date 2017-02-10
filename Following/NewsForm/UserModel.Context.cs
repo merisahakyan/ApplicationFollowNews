@@ -25,6 +25,6 @@ namespace NewsForm
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Users_Table> Users_Table { get; set; }
+        public virtual DbSet<MyUser> MyUsers { get; set; }
     }
 }

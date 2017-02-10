@@ -38,7 +38,7 @@ namespace NewsForm
         {
             using (var db = new UsersContext())
             {
-                var query = from b in db.Users_Table
+                var query = from b in db.MyUsers
                             select b;
 
                 foreach (var item in query)
@@ -57,9 +57,9 @@ namespace NewsForm
             using (var db = new UsersContext())
             {
 
-                var query = from b in db.Users_Table
+                var query = from b in db.MyUsers
                             select b;
-
+               
                 foreach (var item in query)
                 {
                     if (item.eMail == email)
@@ -69,12 +69,12 @@ namespace NewsForm
 
                 if (t)
                 {
-                    var user = new Users_Table { Name = name, Password = password, eMail = email };
-                    db.Users_Table.Add(user);
-
+                    var user = new MyUser { Name = name, Password = password, eMail = email };
+                    db.MyUsers.Add(user);
+                    db.SaveChanges();
                 }
 
-
+                
             }
         }
         int pagenumber;

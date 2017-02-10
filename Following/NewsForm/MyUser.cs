@@ -12,7 +12,7 @@ namespace NewsForm
     using System;
     using System.Collections.Generic;
     
-    public partial class Users_Table
+    public partial class MyUser
     {
         public int ID { get; set; }
         public string Name { get; set; }

@@ -26,14 +26,14 @@ namespace Following
         }
         public static string NewPassword()
         {
-            char[] pin = new char[6];
+            char[] pin = new char[8];
             string alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            byte[] data = new byte[6];
+            byte[] data = new byte[8];
             var rng = new RNGCryptoServiceProvider();
             rng.GetBytes(data);
             var seed = BitConverter.ToInt32(data, 0);
             var rnd = new Random(seed);
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 8; i++)
             {
                 pin[i] = (char)alphabet[rnd.Next(0, alphabet.Length - 1)];
             }
