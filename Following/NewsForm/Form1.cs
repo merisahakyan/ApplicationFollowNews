@@ -58,7 +58,6 @@ namespace NewsForm
             }
         }
         int pagenumber;
-        int previouspagenumber;
         string pin, password;
         static string path;
 
@@ -69,19 +68,20 @@ namespace NewsForm
         }
         //button1----Follow
         //button2----Submit
-        //button3---GetNews
-        //button4---or Sign in
-        //button5---Sign in
-        //button6---Prev
-        // textbox1---email
+        //button3----GetNews
+        //button4----or Sign in
+        //button5----Sign in
+        //button6----Prev
+        //textbox1---email
         //textbox2---Name
-        //textbox3----PIN
-        //label1----eMail
-        //label2----Name
-        //label3---PIN
-        //label4----email
-        //label5----password
-        //label6---validation
+        //textbox3---PIN
+        //textbox4---Password
+        //label1-----eMail
+        //label2-----Name
+        //label3-----PIN
+        //label4-----email
+        //label5-----password
+        //label6----validation
 
         public void FirstPage()
         {
@@ -95,9 +95,11 @@ namespace NewsForm
             textBox1.Text = "";
             textBox2.Text = "";
             textBox3.Text = "";
+            textBox4.Text = "";
             textBox1.Show();
             textBox2.Show();
             textBox3.Hide();
+            textBox4.Hide();
             button1.Show();
             button2.Hide();
             button3.Hide();
@@ -117,16 +119,17 @@ namespace NewsForm
             textBox1.Hide();
             textBox2.Hide();
             textBox3.Show();
+            textBox4.Hide();
             textBox1.Text = "";
             textBox2.Text = "";
             textBox3.Text = "";
+            textBox4.Text = "";
             button1.Hide();
             button2.Show();
             button3.Hide();
             button4.Hide();
             button5.Hide();
             button6.Show();
-            previouspagenumber = pagenumber;
             pagenumber = 1;
         }
         public void AfterSubmitButton()
@@ -140,16 +143,17 @@ namespace NewsForm
             textBox1.Text = "";
             textBox2.Text = "";
             textBox3.Text = "";
+            textBox4.Text = "";
             textBox1.Hide();
             textBox2.Hide();
             textBox3.Hide();
+            textBox4.Hide();
             button1.Hide();
             button2.Hide();
             button3.Show();
             button4.Hide();
             button5.Hide();
             button6.Hide();
-            previouspagenumber = pagenumber;
             pagenumber = 2;
         }
         public void AfterOrSigninButton()
@@ -163,16 +167,18 @@ namespace NewsForm
             textBox1.Text = "";
             textBox2.Text = "";
             textBox3.Text = "";
+            textBox4.Text = "";
             textBox1.Show();
-            textBox2.Show();
+            textBox2.Hide();
             textBox3.Hide();
+            textBox4.Show();
+            textBox4.PasswordChar = '*';
             button1.Hide();
             button2.Hide();
             button3.Hide();
             button4.Hide();
             button5.Show();
             button6.Show();
-            previouspagenumber = pagenumber;
             pagenumber = 3;
         }
         public void AfterSigninButton()
@@ -186,16 +192,17 @@ namespace NewsForm
             textBox1.Text = "";
             textBox2.Text = "";
             textBox3.Text = "";
+            textBox4.Text = "";
             textBox1.Hide();
             textBox2.Hide();
             textBox3.Hide();
+            textBox4.Hide();
             button1.Hide();
             button2.Hide();
             button3.Show();
             button4.Hide();
             button5.Hide();
             button6.Hide();
-            previouspagenumber = pagenumber;
             pagenumber = 4;
         }
         private void button1_Click(object sender, EventArgs e)
@@ -326,7 +333,7 @@ namespace NewsForm
 
 
         }
-        
+
         private void button6_Click(object sender, EventArgs e)
         {
             switch (pagenumber)
@@ -334,8 +341,6 @@ namespace NewsForm
                 case 1: FirstPage(); break;
                 case 3: FirstPage(); break;
                 case 4: AfterOrSigninButton(); break;
-
-
             }
         }
     }
