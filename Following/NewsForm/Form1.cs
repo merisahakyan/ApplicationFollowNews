@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Following;
 using System.IO;
+using System.Drawing;
 
 namespace NewsForm
 {
@@ -59,6 +60,7 @@ namespace NewsForm
         int previouspagenumber;
         string pin, password;
         static string path;
+
         public News()
         {
             InitializeComponent();
@@ -197,7 +199,7 @@ namespace NewsForm
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            
+
             button1.Enabled = false;
             string email = textBox1.Text;
             string name = textBox2.Text;
@@ -235,18 +237,30 @@ namespace NewsForm
 
 
         }
+        int pincount = 0;
 
         private void button2_Click(object sender, EventArgs e)
         {
 
-            if (textBox3.Text == pin)
+            if (pincount < 2)
             {
+                if (textBox3.Text == pin)
+                {
 
-                AfterSubmitButton();
+                    AfterSubmitButton();
+                }
+                else
+                {
+                    pincount++;
+                    label6.Show();
+                    label6.Text = "Wrong PIN !";
+                    textBox3.Text = "";
+                }
             }
             else
             {
-                textBox3.Text = "";
+                FirstPage();
+                pincount = 0;
             }
         }
 
