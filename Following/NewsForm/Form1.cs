@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Following;
 using System.IO;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace NewsForm
 {
@@ -147,7 +148,7 @@ namespace NewsForm
             button3.Show();
             button4.Hide();
             button5.Hide();
-            button6.Show();
+            button6.Hide();
             previouspagenumber = pagenumber;
             pagenumber = 2;
         }
@@ -193,7 +194,7 @@ namespace NewsForm
             button3.Show();
             button4.Hide();
             button5.Hide();
-            button6.Show();
+            button6.Hide();
             previouspagenumber = pagenumber;
             pagenumber = 4;
         }
@@ -325,17 +326,15 @@ namespace NewsForm
 
 
         }
-
+        
         private void button6_Click(object sender, EventArgs e)
         {
-
-            switch (previouspagenumber)
+            switch (pagenumber)
             {
-                case 0: FirstPage(); break;
-                case 1: AfterFollowButton(); break;
-                case 2: AfterSubmitButton(); break;
-                case 3: AfterOrSigninButton(); break;
-                case 4: AfterSigninButton(); break;
+                case 1: FirstPage(); break;
+                case 3: FirstPage(); break;
+                case 4: AfterOrSigninButton(); break;
+
 
             }
         }
