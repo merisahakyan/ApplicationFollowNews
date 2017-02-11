@@ -30,10 +30,9 @@ namespace NewsForm
             }
         }
 
-        public static void AddNewUser(string name, string email, string password, out bool t)
+        public static bool CheckMailForRegister(string mail)
         {
-
-            t = true;
+            bool t = true;
             using (var db = new UsersContext())
             {
 
@@ -42,12 +41,20 @@ namespace NewsForm
 
                 foreach (var item in query)
                 {
-                    if (item.eMail == email)
+                    if (item.eMail == mail)
                         t = false;
                     break;
                 }
+                return t;
+            }
+        }
+        public static void AddNewUser(string name, string email, string password)
+        {
 
-                if (t)
+
+            using (var db = new UsersContext())
+            {
+                if (CheckMailForRegister(email))
                 {
                     var user = new MyUser { Name = name, Password = password, eMail = email };
                     db.MyUsers.Add(user);
@@ -60,6 +67,7 @@ namespace NewsForm
         int pagenumber;
         string pin, password;
         static string path;
+        string email, name;
 
         public News()
         {
@@ -209,23 +217,27 @@ namespace NewsForm
         {
 
             button1.Enabled = false;
-            string email = textBox1.Text;
-            string name = textBox2.Text;
+            email = textBox1.Text;
+            name = textBox2.Text;
             bool mailcheck = SendMail.CheckMail(email);
             if (mailcheck)
             {
                 var task = Task<bool>.Run(() =>
                {
-                   bool t;
-                   password = Password.NewPassword();
-                   AddNewUser(name, email, password, out t);
-                   SendMail.TextMessage(email, name, out pin, password);
-                   return t;
+                   if (CheckMailForRegister(email))
+                   {
+                       password = Password.NewPassword();
+                       SendMail.TextMessage(email, name, out pin, password);
+                   }
+                   return CheckMailForRegister(email);
+
 
                });
                 var result = task.Result;
                 if (result)
+                {
                     AfterFollowButton();
+                }
                 else
                 {
                     label6.Text = "Email is already in use";
@@ -254,7 +266,7 @@ namespace NewsForm
             {
                 if (textBox3.Text == pin)
                 {
-
+                    AddNewUser(name, email, password);
                     AfterSubmitButton();
                 }
                 else
