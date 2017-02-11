@@ -81,7 +81,7 @@ namespace NewsForm
         //label3-----PIN
         //label4-----email
         //label5-----password
-        //label6----validation
+        //label6-----validation
 
         public void FirstPage()
         {
@@ -283,6 +283,7 @@ namespace NewsForm
             {
                 //file does nor exist
             }
+
             var task = Task.Run(() =>
             {
                 MyNews mn = new MyNews("BlogNews");
@@ -297,7 +298,7 @@ namespace NewsForm
             });
 
 
-            button3.Enabled = true;
+
 
         }
         public static void ShowNews(object sender, EventArgs e)
@@ -322,7 +323,7 @@ namespace NewsForm
         private void button5_Click(object sender, EventArgs e)
         {
             string email = textBox1.Text;
-            string password = textBox2.Text;
+            string password = textBox4.Text;
             if (CheckSignIn(email, password))
                 AfterSigninButton();
             else
