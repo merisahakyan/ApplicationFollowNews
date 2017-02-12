@@ -92,25 +92,32 @@ namespace Following
             {
                 SmtpClient client = new SmtpClient();
                 client.Port = 587;
-                client.Host = mails[mails.Length - 1] == "mail.ru" ? "smtp.mail.ru" : "smtp.gmail.com";
                 client.EnableSsl = true;
                 client.DeliveryMethod = SmtpDeliveryMethod.Network;
                 client.UseDefaultCredentials = false;
                 switch (mails[mails.Length - 1])
                 {
                     case "mail.ru":
-                        client.Credentials = new System.Net.NetworkCredential("your email address", "password");
-                        sender = "your email address";
+                    case "bk.ru":
+                    case "list.ru":
+                    case "inbox.ru":
+                        client.Host = "smtp.mail.ru";
+                        client.Credentials = new System.Net.NetworkCredential("sahakyan-m15@mail.ru", "merishok975");
+                        sender = "sahakyan-m15@mail.ru";
                         break;
-                    case "gmail.com": client.Credentials = new System.Net.NetworkCredential("your gmail address", "password");
+                    case "gmail.com":
+                        client.Host = "smtp.gmail.com";
+                        client.Credentials = new System.Net.NetworkCredential("your gmail address", "password");
                         sender = "your gmail address";
                         break;
-                    case "yandex.ru": client.Credentials = new System.Net.NetworkCredential("your yandex address", "password");
+                    case "yandex.ru":
+                        client.Host = "smtp.yandex.ru";
+                        client.Credentials = new System.Net.NetworkCredential("your yandex address", "password");
                         sender = "your yandes address";
                         break;
-                    default: sender = "";break;
+                    default: sender = ""; break;
                 }
-               
+
                 mail = new MailMessage(sender, address);
                 mail.Subject = "Following";
 

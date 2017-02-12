@@ -21,7 +21,7 @@ namespace NewsForm
 
                 foreach (var item in query)
                 {
-                    if (item.eMail == email && item.Password == password)
+                    if (item.eMail == email && item.Password == Password.CryptedPassword(password))
                         return true;
                 }
                 return false;
@@ -40,8 +40,10 @@ namespace NewsForm
                 foreach (var item in query)
                 {
                     if (item.eMail == mail)
+                    {
                         t = false;
-                    break;
+                        break;
+                    }
                 }
                 return t;
             }
@@ -54,7 +56,7 @@ namespace NewsForm
             {
                 if (CheckMailForRegister(email))
                 {
-                    var user = new MyUser { Name = name, Password = password, eMail = email };
+                    var user = new MyUser { Name = name, Password = Password.CryptedPassword(password), eMail = email };
                     db.MyUsers.Add(user);
                     db.SaveChanges();
                 }
@@ -162,7 +164,9 @@ namespace NewsForm
             button4.Hide();
             button5.Hide();
             button6.Hide();
-            comboBox1.Hide();
+            comboBox1.Show();
+            comboBox1.Items.AddRange(new string[] { "Armenian", "Russian" });
+            comboBox1.Text = "Armenian";
             pagenumber = 2;
         }
         public void AfterOrSigninButton()

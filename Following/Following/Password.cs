@@ -1,10 +1,23 @@
 ﻿using System;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace Following
 {
     public class Password
     {
+        public static string CryptedPassword(string password)
+        {
+            byte[] bytes = Encoding.Unicode.GetBytes(password);
+            SHA256Managed hashstring = new SHA256Managed();
+            byte[] hash = hashstring.ComputeHash(bytes);
+            string hashString = string.Empty;
+            foreach (byte x in hash)
+            {
+                hashString += String.Format("{0:x2}", x);
+            }
+            return hashString;
+        }
         public static string PinCodeGen()
         {
             char[] pin = new char[4];
