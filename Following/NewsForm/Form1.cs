@@ -88,6 +88,7 @@ namespace NewsForm
         //label4-----email
         //label5-----password
         //label6-----validation
+        //combobox1--language
 
         public void FirstPage()
         {
@@ -112,6 +113,7 @@ namespace NewsForm
             button4.Show();
             button5.Hide();
             button6.Hide();
+            comboBox1.Hide();
             pagenumber = 0;
         }
         public void AfterFollowButton()
@@ -160,6 +162,7 @@ namespace NewsForm
             button4.Hide();
             button5.Hide();
             button6.Hide();
+            comboBox1.Hide();
             pagenumber = 2;
         }
         public void AfterOrSigninButton()
@@ -185,6 +188,7 @@ namespace NewsForm
             button4.Hide();
             button5.Show();
             button6.Show();
+            comboBox1.Hide();
             pagenumber = 3;
         }
         public void AfterSigninButton()
@@ -209,6 +213,9 @@ namespace NewsForm
             button4.Hide();
             button5.Hide();
             button6.Hide();
+            comboBox1.Show();
+            comboBox1.Items.AddRange(new string [] { "Armenian", "Russian"});
+            comboBox1.Text = "Armenian";
             pagenumber = 4;
         }
         private void button1_Click(object sender, EventArgs e)
@@ -293,10 +300,11 @@ namespace NewsForm
             {
                 //file does nor exist
             }
-
+            object selected = comboBox1.SelectedItem;
             var task = Task.Run(() =>
             {
-                MyNews mn = new MyNews("BlogNews");
+                
+                MyNews mn = new MyNews("BlogNews",selected.ToString());
                 mn.BroadcastNews(path);
 
 
@@ -316,6 +324,8 @@ namespace NewsForm
         {
             AfterOrSigninButton();
         }
+
+        
 
         private void button5_Click(object sender, EventArgs e)
         {
