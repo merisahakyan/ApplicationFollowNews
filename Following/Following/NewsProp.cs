@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Following
 {
-    public class NewsProp:EventArgs
+    public class NewsProp
     {   
         public string Title { get; set; }
         public string Date { get; set; }
@@ -14,7 +14,7 @@ namespace Following
         public string Link { get; set; }
         public override string ToString()
         {
-            return $"{Title} {Environment.NewLine}{Date}{Environment.NewLine}Viewed:{Views}{Environment.NewLine}LinkTo:{Link}{Environment.NewLine}";
+            return $"{Title}</br> {Environment.NewLine}{Date}</br>{Environment.NewLine}Viewed:{Views}</br>{Environment.NewLine}<a href=\"{Link}\">LinkTo</a></br>{Environment.NewLine}</br>";
         }
 
     }

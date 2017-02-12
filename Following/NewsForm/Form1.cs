@@ -66,7 +66,7 @@ namespace NewsForm
         }
         int pagenumber;
         string pin, password;
-        static string path;
+        static string path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/BlogNews.html";
         string email, name;
 
         public News()
@@ -299,8 +299,8 @@ namespace NewsForm
             var task = Task.Run(() =>
             {
                 MyNews mn = new MyNews("BlogNews");
-                mn.DailyNews += ShowNews;
-                mn.BroadcastNews();
+                mn.BroadcastNews(path);
+
 
             });
 
@@ -311,19 +311,6 @@ namespace NewsForm
 
 
 
-
-        }
-        public static void ShowNews(object sender, EventArgs e)
-        {
-            path = Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "/BlogNews.txt";
-            var agency = (MyNews)sender;
-            if (agency != null)
-            {
-                using (StreamWriter r = new StreamWriter(path, true))
-                {
-                    r.WriteLine(e.ToString());
-                }
-            }
 
         }
 

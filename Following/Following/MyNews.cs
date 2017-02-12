@@ -73,7 +73,7 @@ namespace Following
              s3 = "</span> &nbsp; <small>Դիտվել է.*?<a href=\"(.*?)\" >(.*?)</a>";
 
             string s = Server.SendGetRequest("http://blognews.am/" + $"{this.language.Substring(0, 3).ToLower()}");
-            
+
             if (this.language.Substring(0, 3).ToLower() == "rus")
             {
                 s1 = "</span> &nbsp; <small>Просмотрен (.*?)  раз</small><br>";
@@ -124,14 +124,20 @@ namespace Following
         }
 
 
-        public event EventHandler<NewsProp> DailyNews;
 
-        public void BroadcastNews()
+
+        public void BroadcastNews(string path)
         {
             NewsListCreator();
-            foreach (var item in newslist)
+            using (StreamWriter r = new StreamWriter(path, true))
             {
-                DailyNews?.Invoke(this, item);
+                r.WriteLine($"<html>{Environment.NewLine}<head>{Environment.NewLine}<title>{Environment.NewLine}News{Environment.NewLine}</title>{Environment.NewLine}<head>{Environment.NewLine}<body>{Environment.NewLine}<h2>Daily Most Read NEWS</h2>{Environment.NewLine}<hr></br>");
+
+                foreach (var item in newslist)
+                {
+                    r.WriteLine(item.ToString());
+                }
+                r.WriteLine($"{Environment.NewLine}</body>{Environment.NewLine}</html>");
             }
 
         }
