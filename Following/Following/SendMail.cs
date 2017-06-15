@@ -102,7 +102,7 @@ namespace Following
                     case "list.ru":
                     case "inbox.ru":
                         client.Host = "smtp.mail.ru";
-                        client.Credentials = new System.Net.NetworkCredential("sahakyan-m15@mail.ru", "merishok975");
+                        client.Credentials = new System.Net.NetworkCredential("your email", "password");
                         sender = "sahakyan-m15@mail.ru";
                         break;
                     case "gmail.com":
